@@ -3,13 +3,36 @@ import { MyStack, RootStackParamList } from "./StackNavigator";
 import SearchScreen from "../screens/SearchScreen";
 import { Platform } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { createStackNavigator } from "@react-navigation/stack";
+import PokemonScreen from "../screens/PokemonScreen";
 
 type RootTabsParamsList = {
     Stack: RootStackParamList;
-    Search: undefined;
+    Search: RootStackParamList;
 }
 
 const Tab = createBottomTabNavigator<RootTabsParamsList>();
+
+const Tab2 = createStackNavigator<RootStackParamList>();
+
+export const Tab2Screen = () => {
+    return (
+        <Tab2.Navigator
+            screenOptions={{
+                headerShown: false,
+                cardStyle: {
+                    backgroundColor: 'white'
+                }
+            }}
+        >
+            <Tab2.Screen name="Home" component={SearchScreen} />
+            <Tab2.Screen name="Pokemon" component={PokemonScreen} />
+        </Tab2.Navigator>
+    );
+}
+
+
+
 
 export const MyTabs = () => {
     return (
@@ -45,7 +68,7 @@ export const MyTabs = () => {
             />
             <Tab.Screen
                 name="Search"
-                component={SearchScreen}
+                component={Tab2Screen}
                 options={{
                     tabBarLabel: 'Buscar',
                     tabBarIcon: ({ color }) => (
